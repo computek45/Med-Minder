@@ -4,7 +4,7 @@
 # Here looking at you kid, LOL. Hope you stay in good health!!!
 # Completed on Janurary 23, 2019.
 
-# I use alarm.py for the check the time when the medication needs to be
+# I used alarm.py for the check the time when the medication needs to be
 # taken and to make the buzzer sound.
 
 # alarm.py
@@ -25,10 +25,6 @@ GPIO.setmode(GPIO.BCM)
 GPIO.setup(24, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 # I connected the pazzio buzzer to GPIO pin 23.
-
-# GPIO pin 24 is for the momentary switch, which turns off the buzzer.
-# If you want to use a different GPIO pin the just change the number.
-# BCM uses the GPIO numbers not the physical pin numbers.
 
 # morning time variables
 a = 0
@@ -154,7 +150,7 @@ def maintitle():
 def takenomeds():
     buzz(1500,0.5)
     print('')
-    print('There are no medications scheduled to taken at this time.')
+    print('There are no medication(s) scheduled to taken at this time.')
     time.sleep(61)
     maintitle()
 
@@ -168,16 +164,15 @@ def takemorningmeds():
     else:
         buzz(900,0.5)
         time.sleep(0.5)
-        if GPIO.input(24) == 1:
-            print('')
-            print('Time to take the following medication')
-            for d in range(a):
-                if morningtime[d] == True:
-                    f += 1
-                    print(medname[d])
-                    if a == e + f:
-                       time.sleep(61)
-                       maintitle()
+        print('')
+        print('Time to take the following medication(s)')
+        for d in range(a):
+            if morningtime[d] == True:
+                f += 1
+                print(medname[d])
+                if a == e + f:
+                   time.sleep(61)
+                   maintitle()
                         
 def takemiddaymeds():
     l = 0
@@ -189,16 +184,15 @@ def takemiddaymeds():
     else:
         buzz(900,0.5)
         time.sleep(0.5)
-        if GPIO.input(24) == 1:
-            print('')
-            print('Time to take the following medication')
-            for j in range(g):
-                if middaytime[j] == True:
-                    l += 1
-                    print(medname[j])
-                    if g == k + l:
-                        time.sleep(61)
-                        maintitle()
+        print('')
+        print('Time to take the following medication(s)')
+        for j in range(g):
+            if middaytime[j] == True:
+                l += 1
+                print(medname[j])
+                if g == k + l:
+                    time.sleep(61)
+                    maintitle()
                                                                                          
 def takeafternoonmeds():
     r = 0
@@ -210,16 +204,15 @@ def takeafternoonmeds():
     else:
         buzz(900,0.5)
         time.sleep(0.5)
-        if GPIO.input(24) == 1:
-            print('')
-            print('Time to take the following medication')
-            for p in range(m):
-                if afternoontime[p] == True:
-                    r += 1
-                    print(medname[p])
-                    if m == q + r:
-                        time.sleep(61)
-                        maintitle()
+        print('')
+        print('Time to take the following medication(s)')
+        for p in range(m):
+            if afternoontime[p] == True:
+                r += 1
+                print(medname[p])
+                if m == q + r:
+                    time.sleep(61)
+                    maintitle()
                                                         
 def takeeveningmeds():
     x = 0
@@ -231,16 +224,15 @@ def takeeveningmeds():
     else:
         buzz(900,0.5)
         time.sleep(0.5)
-        if GPIO.input(24) == 1:
-            print('')
-            print('Time to take the following medication')
-            for v in range(s):
-                if eveningtime[v] == True:
-                    x += 1
-                    print(medname[v])
-                    if s == w + x:
-                        time.sleep(61)
-                        maintitle()
+        print('')
+        print('Time to take the following medication(s)')
+        for v in range(s):
+            if eveningtime[v] == True:
+                x += 1
+                print(medname[v])
+                if s == w + x:
+                    time.sleep(61)
+                    maintitle()
                         
 maintitle()
                         
