@@ -4,7 +4,7 @@
 # Here looking at you kid, LOL. Hope you stay in good health!!!
 # Completed on Janurary 23, 2019.
 
-# I used alarm.py for the check the time when the medication needs to be
+# I use alarm.py for the check the time when the medication needs to be
 # taken and to make the buzzer sound.
 
 # alarm.py
@@ -21,10 +21,7 @@ import RPi.GPIO as GPIO
 from buzzer import buzz
 import os
 
-GPIO.setmode(GPIO.BCM)
-GPIO.setup(24, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-
-# I connected the pazzio buzzer to GPIO pin 23.
+# I connected the piezo buzzer to GPIO pin 23.
 
 # morning time variables
 a = 0
@@ -61,10 +58,10 @@ x = 0
 # With inputing the time use the 24 hour format excluding leading zeros.
 # midnight would be just 0.
 
-medtime1 = 800
-medtime2 = 1200
-medtime3 = 1600
-medtime4 = 2000
+medtime1 = 800 # Mornig time
+medtime2 = 1200 # Mid-day time
+medtime3 = 1600 # Afternoon time
+medtime4 = 2000 # Evening time
 
 # Replace Med Name 1-6 the the names of the medications you need to take.
 # You can make the list bigger or smaller to suite your needs.
@@ -74,10 +71,10 @@ medname = ['Med Name 1', 'Med Name 2', 'Med Name 3', 'Med Name 4', 'Med Name 5',
 # the true and false words below should correspond with the medication above,
 # of when you need to take them.
 
-morningtime = [False, False, False, False, False, False] # corresponding with medtime1 listed above.
+morningtime = [True, True, True, True, True, True] # corresponding with medtime1 listed above.
 middaytime = [True, True, False, False, False, False] # corresponding with medtime2 listed above.
 afternoontime = [False, False, True, True, False, False] # corresponding with medtime3 listed above.
-eveningtime = [False, False, False, False ,True, False] # corresponding with medtime4 listed above.
+eveningtime = [False, False, False, False ,True, True] # corresponding with medtime4 listed above.
 
 a = len(morningtime)
 g = len(middaytime)
@@ -138,19 +135,14 @@ def setmedtime():
     if currenttime > medtime3 and currenttime < medtime4:
         alarmtime = medtime4
         
-    # Because the time for the buzzer to sound and time.sleep() command
-    # are both 0.5 seconds which adds up to 1 second, you'll need hold
-    # down the momentary switch for 1 full second or longer to shut off
-    # the buzzer.
-    
 def maintitle():
-	 os.system('clear')
-	 print('Running Med Minder')
-
+    os.system('clear')
+    print('Running Med Minder')
+    
 def takenomeds():
     buzz(1500,0.5)
     print('')
-    print('There are no medication(s) scheduled to taken at this time.')
+    print('There are no medications scheduled to taken at this time.')
     time.sleep(61)
     maintitle()
 
@@ -158,7 +150,7 @@ def takemorningmeds():
     f = 0
     if time1 == False:
         # takenomeds()
-        # if you want to be reminded that no medications to taken at this,
+        # if you want to be reminded that no medications to taken at this
         # time, then uncomment the command above.
         pass
     else:
@@ -171,9 +163,9 @@ def takemorningmeds():
                 f += 1
                 print(medname[d])
                 if a == e + f:
-                   time.sleep(61)
-                   maintitle()
-                        
+                    time.sleep(61) 
+                    maintitle()
+                    
 def takemiddaymeds():
     l = 0
     if time2 == False:
@@ -185,13 +177,13 @@ def takemiddaymeds():
         buzz(900,0.5)
         time.sleep(0.5)
         print('')
-        print('Time to take the following medication(s)')
+        print('Time to take the following medication')
         for j in range(g):
             if middaytime[j] == True:
                 l += 1
                 print(medname[j])
                 if g == k + l:
-                    time.sleep(61)
+                    time.sleep(61) 
                     maintitle()
                                                                                          
 def takeafternoonmeds():
@@ -205,13 +197,13 @@ def takeafternoonmeds():
         buzz(900,0.5)
         time.sleep(0.5)
         print('')
-        print('Time to take the following medication(s)')
+        print('Time to take the following medication')
         for p in range(m):
             if afternoontime[p] == True:
                 r += 1
                 print(medname[p])
                 if m == q + r:
-                    time.sleep(61)
+                    time.sleep(61) 
                     maintitle()
                                                         
 def takeeveningmeds():
@@ -225,17 +217,18 @@ def takeeveningmeds():
         buzz(900,0.5)
         time.sleep(0.5)
         print('')
-        print('Time to take the following medication(s)')
+        print('Time to take the following medication')
         for v in range(s):
             if eveningtime[v] == True:
                 x += 1
                 print(medname[v])
                 if s == w + x:
-                    time.sleep(61)
+                    time.sleep(61) 
                     maintitle()
-                        
+
+
 maintitle()
-                        
+
 try:
     while True:
         currenttime = int(time.strftime("%H%M"))
